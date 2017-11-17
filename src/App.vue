@@ -12,7 +12,6 @@
     import g_head from './components/Header'
     import g_aside from './components/Left-nav'
     import g_content from './page/Content'
-
     export default {
       name: 'app',
       components: {
