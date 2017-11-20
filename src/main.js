@@ -20,6 +20,7 @@ Vue.prototype.$api = api;
 
 import Data1 from './assets/data/data.json'
 import Test from './assets/js/test.js'
+import Flex from './assets/js/flex.js'
 
 //Vue.config.productionTip = false
 
