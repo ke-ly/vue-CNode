@@ -5,6 +5,7 @@ import Vue from 'vue';
 //引用路由
 import VueRouter from 'vue-router';
 //使用路由
+
 Vue.use(VueRouter)
 //入口文件
 import App from './App';
@@ -15,12 +16,10 @@ const router = new VueRouter({
   routes
 })
 
-import api from './config/api';
-Vue.prototype.$api = api;
+//import api from './config/api';
+//Vue.prototype.$api = api;
 
-import Data1 from './assets/data/data.json'
-import Test from './assets/js/test.js'
-import Flex from './assets/js/flex.js'
+//import Flex from './assets/js/flex.js'
 
 //Vue.config.productionTip = false
 

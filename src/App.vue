@@ -1,5 +1,5 @@
 <template>
-  <div class="spi">
+  <div class="spi">   
     <router-view
       class="view"
       keep-alive
@@ -16,5 +16,5 @@ export default {
 </script>
 
 <style lang="scss">
-  @import "style/style";
+  @import "./assets/css/style";
 </style>
