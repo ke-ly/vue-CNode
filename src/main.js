@@ -16,6 +16,11 @@ const router = new VueRouter({
   routes
 })
 
+import filters from './config/filters';
+
+Object.keys(filters).forEach(f=>Vue.filter(f,filters[f]))
+
+
 //import api from './config/api';
 //Vue.prototype.$api = api;
 

@@ -4,15 +4,15 @@
     <div id="main">
         <div class="panel">
             <div class="header">
-                 <router-link class="topic-tab" v-for="tab in tabs" :key="tab.id" v-bind:to="tab.url" >{{tab.text}}</router-link>       
+                 <router-link class="topic-tab" v-for="tab in tabs" :key="tab.id" to="tab.url" >{{tab.text}}</router-link>       
             </div>
             <div class="topic">
                 <ul class="topic-list">
                   <li v-for="item in lists">
-                      <a class="user_avatar" v-bind:href="'/user/'+item.author.loginname">
+                      <router-link class="user_avatar pull-left" :to="`/user/${item.author.loginname}`">
                           <img v-bind:src="item.author.avatar_url" alt="">
-                      </a>
-                      <span class="reply_count">
+                      </router-link >
+                      <span class="reply_count pull-left">
                           <span>
                                {{item.reply_count}}
                           </span>
@@ -23,9 +23,21 @@
                               {{item.visit_count}}
                           </span>
                       </span>
-                      <a v-bind:href="'/topic/'+item.id" v-text="item.title">
-                          
-                      </a>
+                      <div class="pull-left">
+                          <span :class="[(item.top||item.good)?'put_top':'topiclist-tab']">
+                              {{ tabFormat(item.top,item.good,item.tab) }}
+                          </span>
+                          <router-link :to="`/topic/${item.id}`" class="topic_title">
+                              {{item.title}}
+                          </router-link>
+                      </div>
+                      
+                      <router-link :to="`/topic/${item.id}`" class="pull-right">
+                          <!--<img src="" alt="">-->
+                          <span class="last_active_time">
+                              {{item.last_reply_at | timeAgo}}
+                          </span>
+                      </router-link>
                   </li>
                 </ul>  
             </div>
@@ -81,16 +93,31 @@
           navBaar
       },
       created () {
-        // 组件创建完后获取数据
         this.get_data()
       },
       methods: {
         get_data: function(params) {
           var self = this;
           axios.get('https://cnodejs.org/api/v1/topics').then(function(r){
-              self.lists = r.data.data
+              self.lists = r.data.data;
           })
         },
+        tabFormat(top,good,tab){
+            if(top){
+                return "置顶"
+            }            
+            if(good){
+                return "精华"
+            }
+            switch(tab){
+                case 'ask':
+                    return '问答'
+                case 'job':
+                    return '招聘'
+                case 'share':
+                    return '分享'
+            }
+        }
       },
     }
 </script>
