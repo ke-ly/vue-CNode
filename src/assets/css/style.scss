@@ -120,6 +120,7 @@ blockquote{
         
         .header{
             padding: 10px;
+            font-size: 14px;
             background-color: #f6f6f6;
             
             .topic-tab{
@@ -133,6 +134,25 @@ blockquote{
                 padding: 3px 4px;
                 border-radius: 3px;
             }
+            
+            .breadcrumb{
+                padding: 0;
+                margin: 0;
+                border: none;
+                background: 0 0;
+
+                >li{
+                    display: inline-block;
+                }
+                
+                a{
+                    color: #80bd01;
+                }
+                .divider{
+                    padding: 0 5px;
+                    color: #ccc;
+                }
+            }  
         }
         
         .topic-header{
@@ -264,6 +284,47 @@ blockquote{
             .reply_content{
                 padding-left: 50px;
                 color: #333;
+            }
+        }
+        
+        .userinfo{
+            padding: 10px;
+            border-top: 1px solid #e5e5e5;
+            
+            .user_big_avatar{
+                float: left;
+                margin-right: 10px;
+                
+                img{
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 3px;
+                }
+            }
+            
+            .user_big_avatar+a{
+                color: #778087;
+            }
+            
+            .user_profile{
+                margin-top: 20px;
+                clear: left;
+                font-size: 14px;
+                color: #778087;
+                
+                li:first-child{
+                    color: #333;
+                }
+                
+                li a{
+                    color: #778087;
+                }
+            }
+            
+            .col_fade{
+                margin: 20px 0;
+                color: #778087;
+                font-size: 14px;
             }
         }
     }

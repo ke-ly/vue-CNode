@@ -16,7 +16,7 @@
                     </span>
                     <span>
                         作者：
-                        <router-link :to="`/user/${content.author}`">{{content.author}}</router-link>
+                        <router-link :to="`/user/${content.loginname}`">{{content.loginname}}</router-link>
                     </span>
                     <span>
                         {{content.visit_count}} 次浏览
@@ -101,7 +101,7 @@
                       title:d.title, 
                       content1:d.content,
                       create_at:d.create_at,
-                      loginname:d.loginname,
+                      loginname:d.author.loginname,
                       visit_count:d.visit_count,
                       last_reply_at:d.last_reply_at,
                       tab:d.tab
