@@ -4,9 +4,9 @@
     <div id="main">
         <div class="panel">
             <div class="header">
-                 <router-link class="topic-tab" v-for="tab in tabs" :key="tab.id" to="tab.url" >{{tab.text}}</router-link>       
+                 <router-link class="topic-tab" :to="{path:'/',query:{tab:tab.url}}"  v-for="tab in tabs" :key="tab.id" >{{tab.text}}</router-link>       
             </div>
-            <div class="topic">
+            <div class="topic">               
                 <ul class="topic-list">
                   <li v-for="item in lists">
                       <router-link class="user_avatar pull-left" :to="`/user/${item.author.loginname}`">
@@ -24,7 +24,7 @@
                           </span>
                       </span>
                       <div class="pull-left">
-                          <span :class="[(item.top||item.good)?'put_top':'topiclist-tab']">
+                          <span  :class="[(item.top||item.good)?'put_top':'topiclist-tab']">
                               {{ tabFormat(item.top,item.good,item.tab) }}
                           </span>
                           <router-link :to="`/topic/${item.id}`" class="topic_title">
@@ -33,7 +33,6 @@
                       </div>
                       
                       <router-link :to="`/topic/${item.id}`" class="pull-right">
-                          <!--<img src="" alt="">-->
                           <span class="last_active_time">
                               {{item.last_reply_at | timeAgo}}
                           </span>
@@ -59,48 +58,57 @@
                 {   
                     id:1,
                     text:"全部",
-                    url:'/?tab=all'
+                    url:'all'
                 },
                 {
                     id:2,
                     text:"精华",
-                    url:'/?tab=all'
+                    url:'good'
                 },
                 {
                     id:3,
                     text:"分享",
-                    url:'/?tab=all'
+                    url:'share'
                 },
                 {
                     id:4,
                     text:"问答",
-                    url:'/?tab=all'
+                    url:'ask'
                 },
                 {
                     id:5,
                     text:"招聘",
-                    url:'/?tab=all'
+                    url:'job'
                 },                
                 {
                     id:6,
                     text:"客户端测试",
-                    url:'/?tab=all'
+                    url:'dev'
                 }
-            ]
+            ],
         }
       },
       components:{
           navBaar
       },
-      created () {
+      watch:{
+            $route(){
+                this.lists = [];
+                this.get_data();
+            }       
+      },
+      mounted () {
         this.get_data()
       },
       methods: {
         get_data: function(params) {
-          var self = this;
-          axios.get('https://cnodejs.org/api/v1/topics').then(function(r){
-              self.lists = r.data.data;
-          })
+            var self = this; 
+            if(self.$route.query.tab == undefined){
+                self.$route.query.tab = 'all'; 
+            }
+            axios.get(`https://cnodejs.org/api/v1/topics?tab=${self.$route.query.tab}`).then(function(r){
+                self.lists = r.data.data;
+            })
         },
         tabFormat(top,good,tab){
             if(top){
@@ -116,6 +124,8 @@
                     return '招聘'
                 case 'share':
                     return '分享'
+                case 'dev':
+                    return '测试'
             }
         }
       },

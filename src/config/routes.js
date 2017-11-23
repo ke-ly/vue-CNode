@@ -6,6 +6,7 @@ import user from '../page/user.vue'
 export default [
   {
     path: '/',
+    name:'index',
     component: index
   },
   {

@@ -25,6 +25,11 @@ blockquote{
 .pull-right{
     float: right;
 }
+.empty-area{
+    padding: 100px 50px;
+    text-align: center;
+    font-size: 18px;
+}
 .navbar{
     margin-bottom: 0;
     z-index: 9;
@@ -126,6 +131,12 @@ blockquote{
             .topic-tab{
                 margin: 0 10px;
                 color: #80bd01;
+            }
+            .topic-tab.router-link-exact-active{                
+                background-color: #80bd01;
+                color: #fff;
+                padding: 3px 4px;
+                border-radius: 3px;   
             }
             
             .topic-tab.current-tab {
