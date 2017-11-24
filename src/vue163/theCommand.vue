@@ -128,8 +128,7 @@
                 if(this.newStudents.name == ""){
                     alert(11)
                     return;
-                }
-                
+                }                
                 if(parseInt(this.newStudents.age) < 6){
                     alert(22)
                     return;
@@ -170,12 +169,23 @@
         }
     }   
 </script>
-<style>
+<style lang="scss" type="text/css">
+    $white:#ffffff;
+    
     .mingling>*{
         width: 600px;
         margin: 100px auto;
         padding: 20px;
-        background-color: #fff;
+        background-color: $white;
+    }
+    .mingling h3{
+        a{
+            font-size: 14px;
+            text-decoration: underline;
+        }
+    }
+    legend{
+        padding: 0 10px;
     }
     input,select,button{
         padding: 10px;

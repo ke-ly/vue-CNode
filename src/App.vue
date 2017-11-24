@@ -1,5 +1,5 @@
 <template>
-  <div class="spi">   
+  <div class="page">   
     <router-view
       class="view"
       keep-alive

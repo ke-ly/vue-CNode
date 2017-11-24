@@ -96,7 +96,6 @@
               axios.get(`https://cnodejs.org/api/v1/topic/${r}`).then(res=>{
                   let d = res.data.data;
                   
-                  console.log(d.replies)
                   self.content = {
                       title:d.title, 
                       content1:d.content,

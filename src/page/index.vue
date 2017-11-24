@@ -53,6 +53,7 @@
         
       data() {
         return {
+            AccessToken:'79e66ed7-6c4d-454e-99e2-d20f4d968e56',
             lists:[],
             tabs:[
                 {   
@@ -97,10 +98,19 @@
                 this.get_data();
             }       
       },
-      mounted () {
-        this.get_data()
+      created() {
+        this.get_data();
+        this.post_user();
       },
       methods: {
+        post_user:function(){
+            var self = this;     
+            axios.post('https://cnodejs.org/api/v1/accesstoken',{
+                accesstoken:self.AccessToken
+            }).then((res)=>{
+                console.log(res)
+            })           
+        },
         get_data: function(params) {
             var self = this; 
             if(self.$route.query.tab == undefined){
