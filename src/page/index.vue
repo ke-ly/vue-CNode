@@ -5,6 +5,7 @@
         <div class="panel">
             <div class="header">
                  <router-link class="topic-tab" :to="{path:'/',query:{tab:tab.url}}"  v-for="tab in tabs" :key="tab.id" >{{tab.text}}</router-link>       
+                 
             </div>
             <div class="topic">               
                 <ul class="topic-list">
@@ -56,36 +57,12 @@
             AccessToken:'79e66ed7-6c4d-454e-99e2-d20f4d968e56',
             lists:[],
             tabs:[
-                {   
-                    id:1,
-                    text:"全部",
-                    url:'all'
-                },
-                {
-                    id:2,
-                    text:"精华",
-                    url:'good'
-                },
-                {
-                    id:3,
-                    text:"分享",
-                    url:'share'
-                },
-                {
-                    id:4,
-                    text:"问答",
-                    url:'ask'
-                },
-                {
-                    id:5,
-                    text:"招聘",
-                    url:'job'
-                },                
-                {
-                    id:6,
-                    text:"客户端测试",
-                    url:'dev'
-                }
+                {id:1,text:"全部",url:'all'},
+                {id:2,text:"精华",url:'good'},
+                {id:3,text:"分享",url:'share'},
+                {id:4,text:"问答",url:'ask'},
+                {id:5,text:"招聘",url:'job'},                
+                {id:6,text:"客户端测试",url:'dev'}
             ],
         }
       },
@@ -100,17 +77,8 @@
       },
       created() {
         this.get_data();
-        this.post_user();
       },
-      methods: {
-        post_user:function(){
-            var self = this;     
-            axios.post('https://cnodejs.org/api/v1/accesstoken',{
-                accesstoken:self.AccessToken
-            }).then((res)=>{
-                console.log(res)
-            })           
-        },
+      methods: {       
         get_data: function(params) {
             var self = this; 
             if(self.$route.query.tab == undefined){

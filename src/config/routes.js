@@ -2,6 +2,9 @@
 import index from '../page/index.vue'
 import topic from '../page/topic.vue'
 import user from '../page/user.vue'
+import signin from '../page/signin.vue'
+
+
 import theCommand from '../vue163/theCommand.vue'
 // 配置路由
 export default [
@@ -18,6 +21,10 @@ export default [
     {
         path: '/user/:id',
         component: user
+    },    
+    {
+        path: '/signin',
+        component: signin
     },
     {
         path:'/163',
