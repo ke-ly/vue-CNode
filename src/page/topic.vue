@@ -50,7 +50,6 @@
                                     {{item.author.loginname}}
                                 </router-link>
                                 <a href="#" class="reply_time">
-                                    {{i+1}}楼 • {{item.create_at | timeAgo}}
                                 </a>                                    
                             </div>
                             <div class="user_action" v-if="item.ups.length > 0">
@@ -58,7 +57,6 @@
                                     <i class="fa" title="喜欢">赞</i>
                                 </span>
                                 <span class="up-count" >
-                                    {{item.ups.length}}
                                 </span>
                             </div>
                         </div>
@@ -95,7 +93,6 @@
               let r = this.$route.params.id;
               axios.get(`https://cnodejs.org/api/v1/topic/${r}`).then(res=>{
                   let d = res.data.data;
-                  
                   self.content = {
                       title:d.title, 
                       content1:d.content,

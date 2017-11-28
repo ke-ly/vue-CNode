@@ -24,7 +24,6 @@ Object.keys(filters).forEach(f=>Vue.filter(f,filters[f]))
 //import api from './config/api';
 //Vue.prototype.$api = api;
 
-//import Flex from './assets/js/flex.js'
 
 //Vue.config.productionTip = false
 

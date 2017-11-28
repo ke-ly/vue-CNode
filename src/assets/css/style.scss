@@ -121,9 +121,10 @@ blockquote{
         .controls{
             margin-left: 180px;  
             
-            input{
+            input,select,textarea{
                 display: inline-block;
-                height: 20px;
+                min-width: 600px;
+                height: 34px;
                 padding: 4px 6px;
                 margin-bottom: 10px;
                 font-size: 14px;
@@ -135,6 +136,10 @@ blockquote{
                 border-radius: 4px;
                 outline: none;
                 border: 1px solid #d9d9d9;
+            }
+            textarea{
+                resize: none;
+                min-height: 200px;
             }
         }
     }
@@ -493,4 +498,7 @@ blockquote{
         }
     }
     
+}
+.divider+span{
+    color: #999;
 }

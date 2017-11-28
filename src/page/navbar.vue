@@ -18,10 +18,10 @@
                       <li>
                           <router-link to="/about" >关于</router-link>  
                       </li>
-                      <template v-if="isLogin">
+                      <template v-if="isLogin">  
                           <li >
-                               <router-link to="/setting" >设置</router-link>     
-                          </li>
+                               <router-link to="/create" >发布</router-link>     
+                          </li>                       
                           <li>
                                <a href="javascript:" @click="signout">退出</a>     
                           </li>
@@ -54,11 +54,12 @@
             this.get_at();    
         },
         methods:{
-            get_at(){                
+            get_at(){   
+                
                 if(Store.fetch() == null){
                     this.isLogin = false;
                 }else{
-                    this.isLogin = true
+                    this.isLogin = true;
                 }  
             },
             signout(){

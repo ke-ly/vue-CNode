@@ -71,7 +71,8 @@
                         this.$router.push({name:"index",path:"/"})
                     }
                 }).catch(err=>{
-//                    alert('错误的accessToken');
+                    console.log(err)
+                    alert('错误的accessToken');
                 })           
             }
         }
