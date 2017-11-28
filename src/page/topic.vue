@@ -27,6 +27,11 @@
                     <span>
                         来自 {{tabFormat(content.tab)}}
                     </span>
+                    <template v-if='isLogin'>
+                         <button type="button" v-if="isCollect"  class="btn" @click="collect(1)">收藏</button>    
+                         <button type="button" v-else="isCollect"  class="btn qx" @click="collect(-1)">取消收藏</button>    
+                    </template>
+                   
                 </div>          
             </div>
             
@@ -71,14 +76,17 @@
 </template>
 <script>
     import axios from 'axios';
-    import navBaar from './navbar';    
+    import navBaar from './navbar';  
+    import Store from '../config/store';
     
     export default {
         
       data() {
         return {
             content:{},
-            replies:[]
+            replies:[],
+            isLogin:false,
+            isCollect:false,
         }
       },
       components:{
@@ -86,8 +94,29 @@
       },
       created () {
         this.getTopic();   
+        this.get_at();
+        this.myCollect()
       },
-      methods: {          
+      methods: {     
+          get_at(){  
+                
+                if(Store.fetch() == null){
+                    this.isLogin = false;
+                }else{
+                    this.isLogin = true;
+                }  
+          },
+          myCollect(){              
+              let arr = [];
+              let yourLoginName = 'kkerwin';
+              axios.get(`https://cnodejs.org/api/v1/topic_collect/${yourLoginName}`).then(res=>{
+                  res.data.data.forEach((v)=>{
+                      arr.push(v.id)                      
+                  })
+                  console.log(arr);
+                  arr.includes(this.$route.params.id)?this.isCollect = false : this.isCollect = true;
+              })  
+          },
           getTopic(){     
               var self = this;
               let r = this.$route.params.id;
@@ -129,6 +158,35 @@
                     return '分享'
             }
         },
+        collect(i){
+            if(i>0){
+                axios.post('https://cnodejs.org/api/v1/topic_collect/collect',{
+                    accesstoken:Store.fetch(),
+                    topic_id:this.$route.params.id
+                }).then(res=>{
+                    alert('收藏成功！！');
+                    this.isCollect = false;
+                })     
+            }else{
+                axios.post('https://cnodejs.org/api/v1/topic_collect/de_collect',{
+                    accesstoken:Store.fetch(),
+                    topic_id:this.$route.params.id
+                }).then(res=>{
+                    alert('取消成功！！');
+                    this.isCollect = true;
+                })       
+            }               
+        }
       },
     }
 </script>
+<style lang="scss">
+    .btn{
+        float: right;
+    }
+    .btn:not(.qx){        
+        border-radius: 3px;
+        background-color: #80bd01;   
+    }
+
+</style>

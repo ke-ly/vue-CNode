@@ -142,25 +142,24 @@ blockquote{
                 min-height: 200px;
             }
         }
-    }
-    
-    .btn{
-        border: none;
-        display: inline-block;
-        float: none;
-        padding: 3px 10px;
-        margin: 0;
-        font-size: 14px;
-        transition: all .2s ease-in-out;
-        letter-spacing: 2px;
-        box-shadow: none;
-        line-height: 2em;
-        vertical-align: middle;
-        color: #fff;
-        cursor: pointer;
-    }
+    }    
+   
 }
-
+.btn{
+    border: none;
+    display: inline-block;
+    float: none;
+    padding: 3px 10px;
+    margin: 0;
+    font-size: 14px;
+    transition: all .2s ease-in-out;
+    letter-spacing: 2px;
+    box-shadow: none;
+    line-height: 2em;
+    vertical-align: middle;
+    color: #fff;
+    cursor: pointer;
+}
 
 #main{
     width: 90%;
@@ -245,6 +244,7 @@ blockquote{
         .changes{
             font-size: 12px;
             color: #838383;
+            overflow: hidden;
             
             span:before{
                 content: "•";

@@ -47,7 +47,7 @@
         data(){
             return {
                 c:'brand',
-                isLogin:true
+                isLogin:false
             }
         },
         created(){
