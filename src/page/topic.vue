@@ -113,8 +113,7 @@
                   res.data.data.forEach((v)=>{
                       arr.push(v.id)                      
                   })
-                  console.log(arr);
-                  arr.includes(this.$route.params.id)?this.isCollect = false : this.isCollect = true;
+                  arr.includes(this.$route.params.id) ? this.isCollect = false : this.isCollect = true;
               })  
           },
           getTopic(){     

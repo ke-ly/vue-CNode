@@ -91,9 +91,8 @@
                     tab:this.tab,
                     content:this.content  
                 }).then(res=>{
-                    console.log(res)
                     alert('发布成功！！');
-                    this.$router.push({path:`/topic/${res.data.data.topic_id}`})
+                    this.$router.push({path:`/topic/${res.data.topic_id}`})
                 })    
             }
         }
