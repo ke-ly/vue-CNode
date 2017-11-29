@@ -55,19 +55,47 @@
                                     {{item.author.loginname}}
                                 </router-link>
                                 <a href="#" class="reply_time">
+                                    {{i+1}}楼 · {{item.create_at | timeAgo}}
                                 </a>                                    
                             </div>
-                            <div class="user_action" v-if="item.ups.length > 0">
-                                <span>
-                                    <i class="fa" title="喜欢">赞</i>
-                                </span>
-                                <span class="up-count" >
-                                </span>
+                            <div class="user_action">
+                                <label for="" v-if="item.ups.length > 0">
+                                    <span>
+                                        <i class="" title="喜欢">赞</i>
+                                    </span>
+                                    <span class="up-count">
+                                        {{item.ups.length}}
+                                    </span>
+                                </label>
+                                <label for="">
+                                    <a href="" class="a-link"  @click.prevent="reply_up(item.id)">
+                                        点赞
+                                    </a>
+                                </label>
+                                <label for="">
+                                    <a href="" class="a-link"  @click.prevent="hf(item.id,item.author.loginname)">
+                                        回复
+                                    </a>
+                                </label>
                             </div>
                         </div>
                         <div class="reply_content" v-html="item.content"></div>
                     </li>
                 </ul>
+            </div>
+        </div>
+        
+        <div class="panel">
+            <div class="header">
+                <span class="col_fade">
+                    添加回复
+                </span>                
+            </div>
+            <div class="inner">
+                 <textarea name="" id="" cols="30" rows="10" v-model="topic_reply" placeholder="请输入回复内容"></textarea>  
+                 <button type="button" class="btn" @click="huifu()">
+                    回复
+                 </button>   
             </div>
         </div>
     </div>
@@ -87,6 +115,8 @@
             replies:[],
             isLogin:false,
             isCollect:false,
+            topic_reply:'',
+            reply_id:''
         }
       },
       components:{
@@ -175,17 +205,72 @@
                     this.isCollect = true;
                 })       
             }               
+        },
+        hf(id,name){
+            this.reply_id = id;            
+            this.topic_reply = `@${name}`   
+        },
+        huifu(){            
+            
+            if(this.topic_reply == ''){
+                alert('回复的内容不能为空！！');
+                return;
+            }
+            
+            axios.post(`https://cnodejs.org/api/v1/topic/${this.$route.params.id}/replies`,{
+                accesstoken:Store.fetch(),
+                content:this.topic_reply,
+                reply_id:this.reply_id
+            }).then(res=>{
+                alert('回复成功！');
+                this.topic_reply = '';
+                this.getTopic();
+            })    
+        },
+        reply_up(i){
+            axios.post(`https://cnodejs.org/api/v1/reply/${i}/ups`,{
+                accesstoken:Store.fetch(),
+            }).then(res=>{
+                this.getTopic();
+            })     
         }
       },
     }
 </script>
 <style lang="scss">
-    .btn{
+    .changes .btn{
         float: right;
     }
     .btn:not(.qx){        
         border-radius: 3px;
         background-color: #80bd01;   
+    }
+    textarea{
+        display: block;
+        width: 100%;
+        min-height: 150px;
+        outline: none;
+        border: none;
+        padding: 15px 10px;
+        font-size: 16px;
+        resize: none;
+    }
+    .reply_time{
+        color: #08c!important;
+    }
+    textarea+.btn:not(.qx){
+        margin: 20px;
+        color: #fff;
+        background-color: #08c;
+    }
+    
+    .user_action{
+        i{
+            font-style: normal;
+        }
+    }
+    .a-link{
+        margin-left: 10px;
     }
 
 </style>
