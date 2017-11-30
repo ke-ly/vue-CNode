@@ -10,6 +10,7 @@ import create from '../page/create.vue'
 
 
 import theCommand from '../vue163/theCommand.vue'
+import zujian from '../vue163/zujian.vue'
 // 配置路由
 export default [
     
@@ -49,5 +50,9 @@ export default [
     {
         path:'/163',
         component:theCommand
+    },
+    {
+        path:'/zujian',
+        component:zujian
     }
 ]
