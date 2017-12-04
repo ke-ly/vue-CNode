@@ -1,6 +1,9 @@
 <template>
    <div class="zujian">
-      <my_div :msg='title' :erzi='val'></my_div>  
+      <my_div :msg='title' :erzi='val'>
+          <div slot="title">实名插槽的title</div>
+          <div slot="color"><input type="color" value="实名插槽的color" id=""></div>
+      </my_div>  
       <my_btn @total="allConunter"></my_btn>     
       <my_btn @total="allConunter"></my_btn>     
       <my_btn @total="allConunter"></my_btn>     

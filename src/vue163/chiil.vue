@@ -1,7 +1,8 @@
 <template>
     <div>
         <input type="text" :value="suizi">
-    </div>    
+        <slot>slot的默认文字</slot>  
+    </div>      
 </template>
 <script>
     export default {
