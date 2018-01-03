@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>form</title>
+    <style>
+        form{
+            width: 500px;
+            margin: 100px auto;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+        }  
+        .form-group{
+            margin-bottom: 20px;
+        }  
+        input{
+            display: inline-block;
+            min-width: 300px;
+            padding: 10px;
+        }
+        button{
+            padding: 10px 50px;
+        }
+        button[type="reset"]{
+            margin-left: 15px;
+        }
+        .text-center{
+            text-align: center;
+        }
+        table{
+            width: 80%;
+            margin:50px auto;
+            border-collapse: collapse;
+            text-align: left;
+            border-radius: 4px 4px 0 0;
+            border: 1px solid #e0e0e0;
+        }
+        table th{
+            background-color: #f4f4f4;
+        }
+        table th,table td{
+            padding: 10px 20px;
+            border: 1px solid #e0e0e0;
+        }
+        table td span{
+            margin-right: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react.min.js"></script>
+    <script src="https://cdn.bootcss.com/react/15.4.2/react-dom.min.js"></script>
+    <script src="https://cdn.bootcss.com/babel-standalone/6.22.1/babel.min.js"></script>
+    <script type="text/babel">
+
+        class Userlist extends React.Component{
+            constructor(props){
+                super(props);
+                this.state =  {
+                    isSign:false,
+                    users:props.users || []
+                };                
+                this.handleNewUser = this.handleNewUser.bind(this) 
+            }   
+
+            handleNewUser(data){  
+                const us = this.state.users;
+                const newUsers = us.concat([data]);
+                this.setState({users: newUsers})
+            } 
+
+            render(){
+                return (
+                    <div>
+                        <Mylist users={this.state.users} />     
+                        <Myform tj={this.handleNewUser} ptoc={this.state.isSign}/>  
+                    </div>   
+                )
+            }
+        }
+
+        class Mylist extends React.Component{
+            constructor(props){
+                super(props);
+                this.delUser = this.delUser.bind(this);
+            }  
+
+            delUser(){
+                console.log(this)    
+            }
+
+            render(){
+                const olds = this.props.users;
+                const trs = olds.map((user,index)=>{
+                    let row = user.likes.split(',');
+                    return (
+                        <tr data-keys={'user_'+index}>
+                            <td>{user.name}</td>
+                            <td>{user.age}</td>
+                            <td>{user.tel}</td>
+                            <td>
+                                {
+                                    row.map(like=>{
+                                        return <span>{like}</span>
+                                    })
+                                }
+                            </td>
+                            <td>
+                                <a href="javascript:" onClick={this.delUser}>删除</a>
+                            </td>
+                        </tr>
+                    )
+                });
+                
+                return (
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>姓名</th>
+                                <th>年龄</th>
+                                <th>电话</th>
+                                <th>爱好</th>
+                                <th>操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {trs}
+                        </tbody>
+                    </table>
+                )
+            }
+        }
+
+        class Myform extends React.Component{
+            constructor(props){
+                super(props);
+                this.saveData = this.saveData.bind(this);
+            }
+
+            saveData(e){
+                e.preventDefault();
+                const newName = this.refs.name.value
+                const newAge = this.refs.age.value
+                const newTel = this.refs.tel.value
+                const newLikes = this.refs.likes.value
+                const form = this.refs.form
+                this.props.tj({name:newName,age:newAge,tel:newTel,likes:newLikes});
+                form.reset();
+            }
+           
+            render(){
+                if(this.props.ptoc){
+                    return (
+                        <div>
+                            <h1 className="text-center">你的数据已经录入过了！</h1>
+                        </div>
+                    )
+                }else{
+                    return (
+                        <form name={this.props.name} ref='form'>
+                            <div className="form-group">
+                                <label>姓名：</label>    
+                                <input type="text" ref="name" placeholder="请输入您的姓名" />
+                            </div>
+                            <div className="form-group">
+                                <label>年龄：</label>    
+                                <input type="number" ref="age" placeholder="请输入您的年龄" />
+                            </div>
+                            <div className="form-group">
+                                <label>电话：</label>    
+                                <input type="tel" ref="tel" placeholder="请输入您的电话" />
+                            </div>
+                            <div className="form-group">
+                                <label>爱好：</label>    
+                                <input type="text" ref="likes" placeholder="请输入您的爱好，多个用逗号分隔" />
+                            </div>
+                            <div className="form-group">
+                                <button type="submit" onClick={this.saveData}>提交</button>
+                                <button type="reset">取消</button>
+                            </div>
+                        </form>
+                    )
+                }               
+            }   
+        }
+
+        let oldUser = [
+            {name: "张三", age: "35", tel: "110", likes: "吃饭,睡觉,打豆豆"},
+            {name: "李四", age: "20", tel: "119", likes: "看书,放火"},
+            {name: "王五", age: "24", tel: "120", likes: "看电影,旅游"},
+        ]
+        var sdd = ReactDOM.render(
+            <Userlist users={oldUser} name="adduser"/>,
+            document.getElementById('root')     
+        )
+    </script>
+</body>
+</html>

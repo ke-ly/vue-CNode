@@ -4,8 +4,7 @@
     <div id="main">
         <div class="panel">
             <div class="header">
-                 <router-link class="topic-tab" :to="{path:'/',query:{tab:tab.url}}"  v-for="tab in tabs" :key="tab.id" >{{tab.text}}</router-link>       
-                 
+                 <router-link class="topic-tab" :to="{path:'/',query:{tab:tab.url}}"  v-for="tab in tabs" :key="tab.id" >{{tab.text}}</router-link>                        
             </div>
             <div class="topic">               
                 <ul class="topic-list">
